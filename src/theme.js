@@ -17,23 +17,26 @@ refs.themeSwitch.addEventListener('change', onSwitchCheckbox);
 function onSwitchCheckbox(e) {
   if (e.target.checked) {
     localStorage.setItem(STORAGE_KEY, Theme.DARK);
-    switchesThemeСolor();
+    switchesThemeСolor(e);
   }
 
   if (!e.target.checked) {
     localStorage.setItem(STORAGE_KEY, Theme.LIGHT);
-    switchesThemeСolor();
+    switchesThemeСolor(e);
   }
 }
 
-function switchesThemeСolor() {
-  if (document.body.classList.contains('light-theme')) {
-    document.body.classList.remove('light-theme');
-    document.body.classList.add('dark-theme');
+function switchesThemeСolor(e) {
+  if (e.target.checked) {
+    return updateClass('dark-theme', 'light-theme');
   } else {
-    document.body.classList.remove('dark-theme');
-    document.body.classList.add('light-theme');
+    return updateClass('light-theme', 'dark-theme');
   }
+}
+
+function updateClass(addClass, remClass) {
+  document.body.classList.remove(remClass);
+  document.body.classList.add(addClass);
 }
 
 function getDataFromLocalStorageWhenLoadingPage() {
